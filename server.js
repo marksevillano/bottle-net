@@ -17,9 +17,7 @@ console.log("websocket server created")
 wss.on("connection", function(ws) {
       //ws.send('something');
       console.log("connection open");
-      setInterval(function() {
-              sendRnd10();      
-      }, 5000);
+     
       ws.on('open', function open() {
           ws.send('something');
       });
