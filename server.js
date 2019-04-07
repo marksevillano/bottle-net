@@ -24,7 +24,7 @@ wss.on("connection", function(ws) {
 
       ws.on('message', function message(m) {
         console.log(m.data);
-        client.send(m.data);
+        ws.send(m.data);
       });
         
       ws.on('close', function close() {
