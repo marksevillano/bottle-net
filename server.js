@@ -7,6 +7,8 @@ var port = process.env.PORT || 5000
 app.use(express.static(__dirname + "/"))
 
 var server = http.createServer(app)
+
+var dataSent = 0;
 server.listen(port)
 
 console.log("http server listening on %d", port)
@@ -23,12 +25,18 @@ wss.on("connection", function(ws) {
       });
 
       ws.on('message', function message(m) {
-        console.log(m.data);
-        ws.send(m.data);
+        console.log(m);
+        dataSent = m;
+        //ws.send(m.data);
       });
         
       ws.on('close', function close() {
         console.log("closed");
       });
   
+})
+
+app.get('/', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ bottle: dataSent }));
 })
